@@ -1,17 +1,17 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { connectionFactory } from 'src/config/connection';
+import { InjectRepository } from '@nestjs/typeorm';
 import { TransactionEntity } from 'src/entity';
+import { Repository } from 'typeorm';
 import { TransactionInterface } from './transaction.interface';
 
 @Injectable()
-export class TransactionService implements OnModuleInit {
+export class TransactionService {
 
-    private repository;
+    constructor(
+        @InjectRepository(TransactionEntity)
+        private repository: Repository<TransactionEntity>
+    ) { }
 
-    async onModuleInit(): Promise<void> {
-        const connection = await connectionFactory.getConnection()
-        this.repository = connection.getRepository(TransactionEntity)
-    }
 
     /**
      * List all transaction
@@ -36,7 +36,7 @@ export class TransactionService implements OnModuleInit {
      * @param userId:number
      * @returns Promise<void>
      */
-    async create(transactionDTO: TransactionInterface, userId: number): Promise<void> {
+    async create(transactionDTO: TransactionInterface, userId: number): Promise<TransactionEntity> {
         const transaction = new TransactionEntity()
 
         transaction.quantity = transactionDTO.quantity
@@ -52,7 +52,7 @@ export class TransactionService implements OnModuleInit {
      * @param id:number
      * @returns Promise<boolean>
      */
-    async delete(id: number): Promise<boolean> {
+    async delete(id: number): Promise<TransactionEntity> {
         const transaction = await this.repository.findOne({ id })
         return await this.repository.remove(transaction)
     }
@@ -63,8 +63,8 @@ export class TransactionService implements OnModuleInit {
      * @param transactionDTO:TransactionInterface
      * @returns Promise<boolean>
      */
-    async update(id: number, transactionDTO: TransactionInterface): Promise<boolean> {
-        const transaction = await this.repository.findOnde({ id })
+    async update(id: number, transactionDTO: TransactionInterface): Promise<TransactionEntity> {
+        const transaction = await this.repository.findOne({ id })
 
         transaction.quantity = transactionDTO.quantity
         transaction.transaction_date = transactionDTO.transaction_date

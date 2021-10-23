@@ -24,13 +24,15 @@ export class TransactionController {
     }
 
     @Delete('/:id')
-    async delete(id: number): Promise<boolean> {
-        return await this.service.delete(id)
+    async delete(id: number): Promise<any> {
+        await this.service.delete(id)
+        return { message: 'ok' }
     }
 
     @Put('/:id')
-    async update(id: number, transaction: TransactionInterface): Promise<boolean> {
-        return await this.service.update(id, transaction)
+    async update(id: number, transaction: TransactionInterface): Promise<any> {
+        await this.service.update(id, transaction)
+        return { message: 'ok' }
     }
 
 }
