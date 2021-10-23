@@ -1,4 +1,5 @@
 import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { TransactionEntity } from 'src/entity';
 import { TransactionInterface } from './transaction.interface';
 import { TransactionService } from './transaction.service';
 
@@ -8,28 +9,28 @@ export class TransactionController {
     constructor(private readonly service: TransactionService) { }
 
     @Get()
-    list(): Array<TransactionInterface> {
-        return []
+    async list(): Promise<TransactionEntity[]> {
+        return await this.service.findAll()
     }
 
     @Get('/:id')
-    show(id: number): TransactionInterface {
-        return null
+    async show(id: number): Promise<TransactionEntity> {
+        return await this.service.find(id)
     }
 
     @Post()
-    create(transaction: TransactionInterface): void {
+    create(transaction: TransactionInterface): Promise<void> {
         return null
     }
 
     @Delete('/:id')
-    delete(id: number): void {
-        return null
+    async delete(id: number): Promise<boolean> {
+        return await this.service.delete(id)
     }
 
     @Put('/:id')
-    update(id: number, transaction: TransactionInterface): void {
-        return null
+    async update(id: number, transaction: TransactionInterface): Promise<boolean> {
+        return await this.service.update(id, transaction)
     }
 
 }

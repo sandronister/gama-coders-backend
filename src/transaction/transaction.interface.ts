@@ -1,5 +1,5 @@
 export interface TransactionInterface {
-    transcation_date: Date;
+    transaction_date: Date;
     quantity: number;
     value_buy: number;
 }

@@ -13,6 +13,9 @@ export class TransactionEntity {
     @Column({ name: 'transaction_date', nullable: false })
     transaction_date: Date;
 
+    @Column({ name: 'user_id', nullable: false })
+    userId: number;
+
     @Column({ name: 'quantity', nullable: false })
     quantity: number;
 
