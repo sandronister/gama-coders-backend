@@ -1,5 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { UserEntity } from 'src/entity';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
 import { UserInterface } from './user.interface';
 import { UserService } from './user.service';
 
@@ -9,7 +8,9 @@ export class UserController {
     constructor(private readonly service: UserService) { }
 
     @Post()
-    async create(@Body() user: UserInterface): Promise<UserEntity> {
-        return await this.service.save(user)
+    @HttpCode(201)
+    async create(@Body() user: UserInterface): Promise<any> {
+        const res = await this.service.save(user)
+        return { message: 'OK' }
     }
 }

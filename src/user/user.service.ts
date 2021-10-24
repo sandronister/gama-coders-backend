@@ -1,24 +1,23 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { TransactionEntity, UserEntity } from 'src/entity';
-import { Repository } from 'typeorm';
-import sha256 from 'crypto-js/sha256';
-import { UserInterface } from './user.interface';
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { UserEntity } from 'src/entity'
+import { Repository } from 'typeorm'
+import { UserInterface } from './user.interface'
+import * as crypto from 'crypto'
 
 @Injectable()
 export class UserService {
 
     constructor(
-        @InjectRepository(TransactionEntity)
-        private repository: Repository<TransactionEntity>
+        @InjectRepository(UserEntity)
+        private repository: Repository<UserEntity>
     ) { }
 
     async save(userDTO: UserInterface): Promise<UserEntity> {
         const user = new UserEntity()
         user.userName = userDTO.userName
         user.email = userDTO.email
-        user.password = sha256(userDTO.password)
-
+        user.password = crypto.createHash('sha256').update(userDTO.password).digest('hex')
         return await this.repository.save(user)
     }
 }

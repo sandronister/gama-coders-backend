@@ -12,7 +12,8 @@ import { join } from 'path';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       entities: [join(__dirname, '**', '*.entity.{ts,js}')],
-      database: 'data.sqlite'
+      database: 'data.sqlite',
+      synchronize: true
     }),
     TransactionModule,],
   controllers: [AppController],
