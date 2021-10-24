@@ -3,7 +3,7 @@ import { TransactionEntity } from 'src/entity';
 import { TransactionInterface } from './transaction.interface';
 import { TransactionService } from './transaction.service';
 
-@Controller()
+@Controller('transaction')
 export class TransactionController {
 
     constructor(private readonly service: TransactionService) { }
