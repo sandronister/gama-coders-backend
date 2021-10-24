@@ -52,4 +52,10 @@ export class UserService {
     async find(id: number): Promise<UserEntity> {
         return await this.repository.findOne({ id })
     }
+
+    async login(userDTO: UserInterface): Promise<void> {
+        userDTO.password = crypto.createHash('sha256').update(userDTO.password).digest('hex')
+        const valid = await this.repository.findOne({ "email": userDTO.email, password: userDTO.password })
+        console.log(valid)
+    }
 }

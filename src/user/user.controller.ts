@@ -27,4 +27,12 @@ export class UserController {
     async show(@Param() { id }: { id: number }): Promise<UserEntity> {
         return await this.service.find(id)
     }
+
+    @Post('/login')
+    @HttpCode(200)
+    async login(@Body() user: UserInterface): Promise<void> {
+        return await this.service.login(user)
+    }
+
+
 }
