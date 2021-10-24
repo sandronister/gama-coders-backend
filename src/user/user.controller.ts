@@ -22,7 +22,7 @@ export class UserController {
 
     @Get('/:id')
     @HttpCode(200)
-    async show(@Param() param): Promise<UserEntity> {
-        return await this.service.find(param.id)
+    async show(@Param() { id }: { id: number }): Promise<UserEntity> {
+        return await this.service.find(id)
     }
 }
