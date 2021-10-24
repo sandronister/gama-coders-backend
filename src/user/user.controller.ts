@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
 import { UserEntity } from 'src/entity';
 import { UserInterface } from './user.interface';
 import { UserService } from './user.service';
@@ -18,5 +18,11 @@ export class UserController {
     @HttpCode(200)
     async list(): Promise<UserEntity[]> {
         return await this.service.findAll()
+    }
+
+    @Get('/:id')
+    @HttpCode(200)
+    async show(@Param() param): Promise<UserEntity> {
+        return await this.service.find(param.id)
     }
 }
