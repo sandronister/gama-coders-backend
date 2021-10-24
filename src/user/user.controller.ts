@@ -10,9 +10,8 @@ export class UserController {
 
     @Post()
     @HttpCode(201)
-    async create(@Body() user: UserInterface): Promise<any> {
-        const res = await this.service.save(user)
-        return { message: 'OK' }
+    async create(@Body() user: UserInterface): Promise<void> {
+        await this.service.save(user)
     }
 
     @Get()
