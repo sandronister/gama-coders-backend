@@ -4,16 +4,16 @@ import { TransactionEntity } from "./transaction.entity";
 @Entity('user')
 export class UserEntity {
     @PrimaryGeneratedColumn({ name: 'id' })
-    id: number;
+    id: number
 
     @Column({ name: 'name', nullable: false })
-    userName: string;
+    userName: string
 
     @Column({ name: 'email', unique: true, nullable: false })
-    email: string;
+    email: string
 
     @Column({ name: 'password', nullable: false })
-    password: string;
+    password: string
 
     @OneToMany(type => TransactionEntity, transactions => transactions.user)
     transactions: TransactionEntity[]

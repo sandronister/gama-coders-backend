@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { TransactionEntity } from 'src/entity';
 import { TransactionInterface } from './transaction.interface';
 import { TransactionService } from './transaction.service';
@@ -14,23 +14,23 @@ export class TransactionController {
     }
 
     @Get('/:id')
-    async show(id: number): Promise<TransactionEntity> {
+    async show(@Param() id: number): Promise<TransactionEntity> {
         return await this.service.find(id)
     }
 
     @Post()
-    create(transaction: TransactionInterface): Promise<void> {
+    create(@Body() transaction: TransactionInterface): Promise<void> {
         return null
     }
 
     @Delete('/:id')
-    async delete(id: number): Promise<any> {
+    async delete(@Param() id: number): Promise<any> {
         await this.service.delete(id)
         return { message: 'ok' }
     }
 
     @Put('/:id')
-    async update(id: number, transaction: TransactionInterface): Promise<any> {
+    async update(@Param() id: number, @Body() transaction: TransactionInterface): Promise<any> {
         await this.service.update(id, transaction)
         return { message: 'ok' }
     }
