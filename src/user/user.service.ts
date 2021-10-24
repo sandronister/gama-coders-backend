@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { UserEntity } from 'src/entity'
 import { Repository } from 'typeorm'
@@ -30,7 +30,7 @@ export class UserService {
 
         const validMail = await this.existsEmail(user)
         if (validMail) {
-            throw new Error('e-mail is duplicate')
+            throw new Error('Is email duplicate')
         }
     }
 

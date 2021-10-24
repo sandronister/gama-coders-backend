@@ -1,5 +1,6 @@
-import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common'
+import { Body, Controller, Get, HttpCode, Param, Post, UseFilters } from '@nestjs/common'
 import { UserEntity } from 'src/entity'
+import { AllExceptionsFilter } from 'src/middleware/AllException.filter'
 import { UserInterface } from './user.interface'
 import { UserService } from './user.service'
 
@@ -10,6 +11,7 @@ export class UserController {
 
     @Post()
     @HttpCode(201)
+    @UseFilters(AllExceptionsFilter)
     async create(@Body() user: UserInterface): Promise<void> {
         await this.service.save(user)
     }
