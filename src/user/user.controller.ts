@@ -30,7 +30,7 @@ export class UserController {
 
     @Post('/login')
     @HttpCode(200)
-    async login(@Body() user: UserInterface): Promise<void> {
+    async login(@Body() user: UserInterface): Promise<any> {
         return await this.service.login(user)
     }
 

@@ -1,10 +1,11 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { UserEntity } from 'src/entity'
 import { Repository } from 'typeorm'
 import { UserInterface } from './user.interface'
 import * as crypto from 'crypto'
 import { validate } from 'class-validator'
+import { JwtService } from '@nestjs/jwt'
 
 
 @Injectable()
@@ -12,7 +13,8 @@ export class UserService {
 
     constructor(
         @InjectRepository(UserEntity)
-        private repository: Repository<UserEntity>
+        private repository: Repository<UserEntity>,
+        private jwtService: JwtService
     ) { }
 
     async existsEmail(user: UserEntity): Promise<boolean> {
@@ -53,9 +55,16 @@ export class UserService {
         return await this.repository.findOne({ id })
     }
 
-    async login(userDTO: UserInterface): Promise<void> {
+    async login(userDTO: UserInterface): Promise<any> {
         userDTO.password = crypto.createHash('sha256').update(userDTO.password).digest('hex')
-        const valid = await this.repository.findOne({ "email": userDTO.email, password: userDTO.password })
-        console.log(valid)
+        const user = await this.repository.findOne({ "email": userDTO.email, password: userDTO.password })
+
+        if (user == undefined) {
+            throw new Error('Invalid Login')
+        }
+
+        return {
+            acess_token: this.jwtService.sign({ userName: user.userName, userId: user.id })
+        }
     }
 }
