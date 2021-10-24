@@ -20,4 +20,8 @@ export class UserService {
         user.password = crypto.createHash('sha256').update(userDTO.password).digest('hex')
         return await this.repository.save(user)
     }
+
+    async findAll(): Promise<UserEntity[]> {
+        return await this.repository.find()
+    }
 }
