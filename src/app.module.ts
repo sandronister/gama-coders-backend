@@ -3,8 +3,6 @@ import { AllExceptionsFilter } from './middleware/AllException.filter';
 import { UserModule } from './user/user.module';
 import { TransactionModule } from './transaction/transaction.module';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 
@@ -18,11 +16,7 @@ import { join } from 'path';
       synchronize: true
     }),
     TransactionModule,],
-  controllers: [AppController],
-  providers: [
-    {
-      provide: APP_FILTER,
-      useClass: AllExceptionsFilter,
-    }, AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule { }

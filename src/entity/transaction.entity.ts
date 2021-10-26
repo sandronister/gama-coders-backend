@@ -1,3 +1,4 @@
+import { toUnicode } from "punycode";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { UserEntity } from "./user.entity";
 
@@ -24,4 +25,12 @@ export class TransactionEntity {
 
     @Column({ name: 'crypto_type', nullable: false })
     crypto_type: string;
+
+    constructor(transaction?: Partial<TransactionEntity>) {
+        this.crypto_type = transaction?.crypto_type;
+        this.transaction_date = transaction?.transaction_date;
+        this.userId = transaction?.userId;
+        this.value_buy = transaction?.value_buy;
+        this.quantity = transaction?.quantity;
+    }
 }
