@@ -1,6 +1,6 @@
 import { Body, Controller, Get, HttpCode, Param, Post, UseFilters } from '@nestjs/common'
-import { UserEntity } from 'src/entity'
-import { AllExceptionsFilter } from 'src/middleware/AllException.filter'
+import { UserEntity } from '../entity'
+import { AllExceptionsFilter } from '../middleware/AllException.filter'
 import { UserInterface } from './user.interface'
 import { UserService } from './user.service'
 

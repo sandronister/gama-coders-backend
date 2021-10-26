@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TransactionEntity } from 'src/entity';
+import { TransactionEntity } from '../entity';
 import { Repository } from 'typeorm';
 import { TransactionInterface } from './transaction.interface';
 

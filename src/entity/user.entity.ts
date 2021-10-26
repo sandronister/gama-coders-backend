@@ -21,4 +21,10 @@ export class UserEntity {
 
     @OneToMany(type => TransactionEntity, transactions => transactions.user)
     transactions: TransactionEntity[]
+
+    constructor(user?: Partial<UserEntity>) {
+        this.email = user?.email;
+        this.userName = user?.userName;
+        this.password = user?.password;
+    }
 }

@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TransactionEntity } from '../entity';
+import { TransactionInterface } from './transaction.interface';
 import { TransactionController } from './transaction.controller';
 import { TransactionService } from './transaction.service';
 
@@ -11,10 +12,9 @@ const transactionEntityList: TransactionEntity[] = [
   new TransactionEntity({crypto_type:'BTC', transaction_date: new Date(), quantity: 0.001, value_buy:10 })
 ]
 
-const newTransaction = {
+const newTransaction: TransactionInterface = {
   quantity: 0.01,
   transaction_date: new Date(),
-  userId: 1,
   value_buy: 200
 }
 

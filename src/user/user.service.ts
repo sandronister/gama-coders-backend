@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { UserEntity } from 'src/entity'
+import { UserEntity } from '../entity'
 import { Repository } from 'typeorm'
 import { UserInterface } from './user.interface'
 import * as crypto from 'crypto'
@@ -64,7 +64,7 @@ export class UserService {
         }
 
         return {
-            acess_token: this.jwtService.sign({ userName: user.userName, userId: user.id })
+            access_token: this.jwtService.sign({ userName: user.userName, userId: user.id })
         }
     }
 }
