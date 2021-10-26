@@ -43,6 +43,7 @@ export class TransactionService {
         transaction.transaction_date = transactionDTO.transaction_date
         transaction.userId = userId
         transaction.value_buy = transactionDTO.value_buy
+        transaction.crypto_type = 'BTC'
 
         return await this.repository.save(transaction)
     }
@@ -63,7 +64,7 @@ export class TransactionService {
      * @param transactionDTO:TransactionInterface
      * @returns Promise<boolean>
      */
-    async update(id: number, transactionDTO: TransactionInterface): Promise<TransactionEntity> {
+    async update(id: number, transactionDTO: TransactionInterface): Promise<TransactionEntity> {        
         const transaction = await this.repository.findOne({ id })
 
         transaction.quantity = transactionDTO.quantity

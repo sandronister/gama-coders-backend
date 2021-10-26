@@ -12,8 +12,9 @@ export class UserController {
     @Post()
     @HttpCode(201)
     @UseFilters(AllExceptionsFilter)
-    async create(@Body() user: UserInterface): Promise<void> {
-        await this.service.save(user)
+    async create(@Body() user: UserInterface): Promise<any> {
+        const {userName, email} = await this.service.save(user)
+        return {userName, email}
     }
 
     @Get()

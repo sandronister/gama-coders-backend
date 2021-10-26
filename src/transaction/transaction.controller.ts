@@ -14,23 +14,23 @@ export class TransactionController {
     }
 
     @Get('/:id')
-    async show(@Param() id: number): Promise<TransactionEntity> {
+    async show(@Param('id') id: number): Promise<TransactionEntity> {
         return await this.service.find(id)
     }
 
     @Post()
-    create(@Body() transaction: TransactionInterface): Promise<void> {
-        return null
+    async create(@Body() transaction: TransactionInterface): Promise<TransactionInterface> {        
+        return await this.service.create(transaction, 3)
     }
 
     @Delete('/:id')
-    async delete(@Param() id: number): Promise<any> {
+    async delete(@Param('id') id: number): Promise<any> {
         await this.service.delete(id)
         return { message: 'ok' }
     }
 
     @Put('/:id')
-    async update(@Param() id: number, @Body() transaction: TransactionInterface): Promise<any> {
+    async update(@Param('id') id: number, @Body() transaction: TransactionInterface): Promise<any> {       
         await this.service.update(id, transaction)
         return { message: 'ok' }
     }
