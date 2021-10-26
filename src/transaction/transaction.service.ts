@@ -18,7 +18,11 @@ export class TransactionService {
      * @returns Promise<TransactionEntity[]>
      */
     async findAll(): Promise<TransactionEntity[]> {
-        return await this.repository.find()
+        return await this.repository.find({
+            order: {
+                transaction_date: "ASC"
+            }
+        })
     }
 
     /**
